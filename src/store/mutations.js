@@ -8,3 +8,7 @@ export const savePath = (state, pathName) => {
 export const addCourse = (state, course) => {
   state.courses.push(course)
 }
+
+export const editCourse = (state, course) => {
+  state.courses.splice(course.id,1,course)
+}

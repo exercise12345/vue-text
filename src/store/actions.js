@@ -7,5 +7,9 @@ export const savePath = ({ commit }, payload) => {
 export const addCourse = ({commit}, course) =>{
    commit('addCourse', course)
 }
+
+export const editCourse = ({ commit }, course) => {
+  commit('updateCourse', course)
+}
 // ES6精简写法
 // export const modifyAName = ({commit},name) => commit('modifyAName', name)

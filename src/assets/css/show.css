@@ -1,7 +1,4 @@
-body{
-  background: rgb(243, 249, 249);
-  position: relative;
-}
+
 .bg-centre{
   margin: 0 auto;
   margin-top: 10px;
@@ -28,12 +25,18 @@ body{
   line-height:25px;
   font-size: 14px;
   border-radius: 10px;
-  content: "在售";
   color: rgb(57, 141, 227);
   background: rgb(227, 239, 253);
 }
 .headline-state-stopsale{
-
+  width: 45px;
+  height: 25px;
+  /* 文字居中 */
+  text-align: center;
+  /* 字体垂直居中 */
+  line-height:25px;
+  font-size: 14px;
+  border-radius: 10px;
   color: rgb(227, 99, 104);
   background: rgb(255, 231, 236);
 }

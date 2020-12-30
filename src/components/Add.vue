@@ -14,29 +14,31 @@
       <div class="course-sates">
         <div class="sates sates-tag">按课时收费</div>
         <!-- 遍历标签 -->
-        <div v-for="(rates, index) in  course.courseRates" :key="rates">
-          <div class="sates sates-count">
+        <div v-for="(rates,index) in  course.courseRates" :key="index">
+          <div class="sates-count">
             <span>收费标准({{index+1}})</span>
-            <div class="delete-charge" @click=deleteCharge(index)>删除</div>
+            <div class="delete-charge" @click="deleteCharge(index)">删除</div>
           </div>
           <div class="sates sates-name">
             <span>收费名称</span>
-            <input type="text" placeholder="最多20字" onfocus="this.placeholder=``" v-model="course.courseRates[index].cname">
+            <input type="text" placeholder="最多20字" onfocus="this.placeholder=``" v-model="rates.cname">
           </div>
-          <div class="sates sates-hour" v-bind:class="{ active: isActive[0] }">
+          <div class="sates sates-hour" 
+          :class="{ active: rates.hour <= 0 }">
             <span>课时数</span>
             <div class="hour-symbol" @click="reduceHour(index)">-</div>
-            <div style="width: 50px;text-align: center;" >{{course.courseRates[index].hour}}</div>
+            <div style="width: 50px;text-align: center;" >{{rates.hour}}</div>
             <div class="hour-symbol" @click="addHour(index)">+</div>
           </div>
-          <div class="sates sates-price" v-bind:class="{ active: isActive[1] }">
+          <div class="sates sates-price" 
+            :class="{ active: rates.price < 0 }">
             <span>金额</span>
-            <input type="number" placeholder="0" onfocus="this.placeholder=``" v-model="course.courseRates[index].price" @change="inspect(index)">
+            <input type="number" placeholder="0" onfocus="this.placeholder=``" v-model="rates.price" @change="inspect(index)">
             <span>元</span>
           </div>
         </div>
       </div>
-      <button class="add-charge" @click="addCharge">添加收费项({{course.courseRates.length}}/10)</button>
+      <button class="add-charge" @click="addCharge()">添加收费项({{course.courseRates.length}}/10)</button>
     </div>
 </template>
 <script>
@@ -47,47 +49,66 @@ export default {
   data () {
     return {
       /* eslint-disable */
-      isActive: [],
+
       course: {
-        courseState: '',
+        id:'',
+        courseState: 1,
         name: '',
         courseRates: [
           {
+            cid:1,
             cname: '',
-            hour: '1',
+            hour: 1,
             price: ''
           }
         ]
       }
+
     }
   },
   methods: {
+    returnShow:function(){
+        this.$router.push({path: '/Show'})
+      },
     trunToShow () {
       //  import { mapActions } from 'vuex';
       // ...mapActions( // 语法糖
       //     ['modifyBName'] // 相当于this.$store.dispatch('modifyName'),提交这个方法
       // ),this.modifyBName
-      
-      
-      this.$store.dispatch('addCourse', this.course);
-      this.$router.push({path: '/Show'}) // 路由跳转到Show展示页面
+      let id=(this.$route.query.id)
+      if(id==undefined){
+        this.course.id=(this.$store.getters.courses.length);
+        if(this.course.name!=''&&this.course.courseRates[0].cname!==''){
+          this.$store.dispatch('addCourse', this.course);
+          this.$router.push({path: '/Show'}) // 路由跳转到Show展示页面
+       }else{
+          return alert("输入不能为空")
+        }
+      }
+      else{
+        if(this.course.name!=''&&this.course.courseRates[0].cname!==''){
+          this.$router.push({path: '/Show'}) // 路由跳转到Show展示页面
+        }else{
+          return alert("输入不能为空")
+        }
+      }
+       
     },
     addCharge () {
-      this.course.courseRates.push({
-        cname: '',
-        hour: '1',
-        price: ''
-      })
-      this.isActive = []
-      if (this.course.courseRates.length >= 10) {
+      if (this.course.courseRates.length < 10) {
+        let i=1;
+        this.course.courseRates.push({
+          cid:++i,
+          cname: '',
+          hour: '1',
+          price: ''
+        })
+      }else{
         alert('最多添加10项')
       }
     },
     deleteCharge (i) {
-      console.log(this.course.courseRates)
       this.course.courseRates.splice(i, 1)
-
-      console.log(this.course.courseRates)
     },
     reduceHour (num) {
       if (this.course.courseRates[num].hour > 0) {
@@ -99,6 +120,7 @@ export default {
     },
     addHour (num) {
       this.course.courseRates[num].hour++
+      
     },
 
     inspect (num) {
@@ -108,7 +130,16 @@ export default {
         alert('总金额必须>0')
       }
     }
+  },
+  beforeMount(){
+    let id=(this.$route.query.id)
+    
+    if(id!=undefined){
+      let editCourse=(this.$store.getters.courses)
+      this.course= editCourse[id]
+    }
   }
+
 }
 </script>
 <style>
