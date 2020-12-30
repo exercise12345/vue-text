@@ -1,0 +1,82 @@
+.course-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+}
+.title-boult{
+  width: 25px;
+  height: 25px;
+}
+.title-tag{
+  font-weight: bold;
+}
+.title-save{
+  color:rgb(71, 144, 233);
+}
+.course-name{
+  font-size: 20px;
+  margin: 15px 0;
+  outline: none;
+}
+.course-sates span{
+  font-weight: 300;
+  width: 25%;
+}
+.sates{
+  display: flex;
+  padding: 10px 0;
+  margin: 0 15px;
+  border-bottom:1px solid rgb(221, 218, 218) ;
+}
+.sates-tag{
+  font-weight: bold;
+}
+.sates-count{
+  line-height: 20px;
+  height: 15px;
+  font-size: 14px;
+  font-weight: 300;
+  background: rgb(247, 247, 247);
+}
+.delete-charge{
+  position: absolute;
+  right: 25px;
+}
+.sates-name>input{
+  font-size: 14px;
+  outline: none;
+}
+.hour-symbol{
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  line-height: 13px;
+
+  border: 1px solid gray;
+  border-radius: 50%;
+  color:  gray;
+}
+.hour-symbol:hover{
+  border: 1px solid rgb(71, 144, 233);
+  color:  rgb(71, 144, 233);
+}
+.sates-price>input{
+  width: 65px;
+  outline: none;
+}
+.add-charge{
+  width: 90%;
+  height: 35px;
+  border-radius: 20px;
+  border:none;
+  background: rgb(0, 127, 254);
+  color: rgb(255, 240, 240);
+  outline: none;
+  position: fixed;
+  right: 5%;
+  bottom: 15px;
+}
+.active{
+  border-bottom:1px solid red ;
+}

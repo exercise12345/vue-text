@@ -1,0 +1,85 @@
+body{
+  background: rgb(243, 249, 249);
+  position: relative;
+}
+.bg-centre{
+  margin: 0 auto;
+  margin-top: 10px;
+  /* background:red; */
+  width: 85%;
+  height: 180px;
+  background: rgb(254, 254, 254);
+  border-radius: 8px;
+}
+.headline{
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-top:5px  ;
+  margin-left: 10px;
+
+}
+.headline-state-sale{
+  width: 45px;
+  height: 25px;
+  /* 文字居中 */
+  text-align: center;
+  /* 字体垂直居中 */
+  line-height:25px;
+  font-size: 14px;
+  border-radius: 10px;
+  content: "在售";
+  color: rgb(57, 141, 227);
+  background: rgb(227, 239, 253);
+}
+.headline-state-stopsale{
+
+  color: rgb(227, 99, 104);
+  background: rgb(255, 231, 236);
+}
+.headline-name{
+  margin-left: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+.headline-more{
+  position: absolute;
+  right: 10px;
+}
+.content{
+  margin-top: 5px;
+  margin:0 10px;
+}
+.content>table{
+  width: 100%;
+  border-collapse: collapse; /*这一行，不能少：表格的两边框合并为一条*/
+  
+}
+.content>table th{
+  color: rgb(195, 193, 196);
+}
+.content>table tr{
+  display: flex;
+  margin: 25px 0px;
+  justify-content: space-between;
+}
+.content-name{
+  width: 25%;
+}
+td{
+  font-size: 14px;
+  text-overflow:ellipsis;
+}
+.add{
+  background: blue;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 40px;
+  text-align: center;
+  color: white;
+  position: absolute;
+  right: 15px;
+  bottom: 100px;
+}
