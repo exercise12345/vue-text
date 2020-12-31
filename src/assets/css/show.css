@@ -1,7 +1,6 @@
 
 .bg-centre{
   margin: 0 auto;
-  margin-top: 10px;
   /* background:red; */
   width: 85%;
   height: 180px;
@@ -82,7 +81,7 @@ td{
   font-size: 40px;
   text-align: center;
   color: white;
-  position: absolute;
+  position: fixed;
   right: 15px;
   bottom: 100px;
 }

@@ -12,3 +12,5 @@ export const addCourse = (state, course) => {
 export const editCourse = (state, course) => {
   state.courses.splice(course.id,1,course)
 }
+
+
