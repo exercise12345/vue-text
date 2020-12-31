@@ -1,7 +1,7 @@
 <template >
 <!-- style="overflow:auto;height: 100%;" ref="scroll" -->
-  <div style="height: 720px;">
-    <div class="bg-centre" v-for="(course,index) in dataShow" :key="course.id" >
+  <div style=" overflow:scroll;" :style="{height: Height+'px'}" @scroll="handleScroll()" ref="scroll">
+    <div class="bg-centre" v-for="(course,index) in totalPageShow" :key="course.id" >
         <div class="headline">
           <div class="headline-state-sale" 
           @click.stop="editState(index)"
@@ -39,15 +39,17 @@ export default {
   name: 'Show',
   data () {
     return {
+      //页面高度
+      Height:'700',
         // 总页数
         pageNum:1,
         // 每页显示的个数
-        pageSize:7,
+        pageSize:5,
         // 当前页
         currentPage:0,
-        // 总数据
-        totalPage:[],
-        // 当前显示的数据
+        // 显示总数据
+        totalPageShow:[],
+        // 当前显示第几页的数据
         dataShow:[]
     }
   },
@@ -74,55 +76,52 @@ export default {
     //滚动方法
     handleScroll(){
         let that = this
-        let sh = document.documentElement.scrollHeight; // 滚动条高度
-        let st = document.documentElement.scrollTop // 滚动条距离顶部的距离
-        let ch = document.documentElement.clientHeight // 滚动条外容器的高度
-        console.log('sh='+sh)
-        console.log('st='+st)
-        console.log('ch='+ch)
+        let sh = that.$refs.scroll.scrollHeight; // 滚动条高度
+        let st = that.$refs.scroll.scrollTop // 滚动条距离顶部的距离
+        let ch = that.$refs.scroll.clientHeight // 滚动条外容器的高度
+        console.log('sh'+sh)
+        console.log('st'+st)
+        console.log('ch'+ch)
         if (sh - st == ch) {
             //滚动到下下一页
             if (that.currentPage == that.pageNum - 1) return;
             else{
-              that.dataShow = that.totalPage[++that.currentPage]
+              that.totalPageShow=that.totalPageShow.concat(that.dataShow[++that.currentPage])
+              console.log(that.totalPageShow)
             }
-        }
-        if( st==0){
-          if (that.currentPage == 0) return;
-            that.dataShow = that.totalPage[--that.currentPage]
+            that.Height= (this.$refs.scroll.scrollHeight);
         }
         
     },
   },
-   mounted() {
-        //添加滚动事件
-        window.addEventListener('scroll', this.handleScroll, false);
-        // let scroll = this.$refs.scroll
-        // console.log(scroll)
-        // scroll.addEventListener('scroll',this.test,false)
-      },
+  //  mounted() {
+  //       //添加滚动事件
+  //       window.addEventListener('scroll', this.handleScroll, false);
+  //     },
 
   created: function(){
-      console.log(this.courses)
       // 总页数
       this.pageNum = Math.ceil(this.courses.length / this.pageSize) || 1 ;
       // 分组
       for (var i = 0; i<this.pageNum; i++) {
-          this.totalPage[i] = this.courses.slice(this.pageSize * i, this.pageSize * (i + 1))
+          this.dataShow[i] = this.courses.slice(this.pageSize * i, this.pageSize * (i + 1))
+          
       }
-      // 取值
-      this.dataShow = this.totalPage[this.currentPage];
+      //取一组展示
+      this.totalPageShow=this.dataShow[0]
     },
  computed: {
     ...mapGetters(['courses']),//动态计算属性，相当于this.$store.getters.courses
   },
+  
+ } 
  
   // mounted(){
   //   this.courses = this.$store.getters.courses
   //   console.log(this.courses)
   // }
 
-}
+
 </script>
 <style>
   @import '../assets/css/show.css';
